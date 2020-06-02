@@ -1,6 +1,6 @@
 # Identity Resolution using DBT and RudderStack
 
-RudderStack supports different data warehouse destinations such as Redshift, BigQuery, and Snowflake. For each of these warehouses, certain predefined RudderStack tables get created, along with the tables for each type of event routed to RudderStack from different sources. This project leverages the `identifies` table that gets created when any client application invokes the `identify` API of the RudderStack SDK. This API is typically invoked at the time of user login or registration.
+RudderStack supports different data warehouse destinations such as Redshift, BigQuery, and Snowflake. For each of these warehouses, certain predefined RudderStack tables get created, along with the tables for each type of event routed to RudderStack from different sources. This project leverages the `identifies` table that is created when any client application invokes the `identify` API of the RudderStack SDK. This API is typically invoked at the time of user login or registration.
 
 This repository contains a sample DBT project for **ID Resolution** in  a RudderStack-based Snowflake Data Warehouse.
 
@@ -14,33 +14,32 @@ At a high level, ID Resolution is explained as follows:
 - **ID Resolution** ties together all these different IDs to enable the enterprise or the developer to relate all the sessions and activities to a single user.
 
 # What Special DBT Features we use in this Project
-We use **DBT incremental models** for the following reasons:
-- The ID linkages are built iteratively using two base tables. The process involves self-referencing.
-- Data from the `identifies` table is incrementally introduced into the mix to accommodate new IDs
+We use the [**DBT incremental models**](https://docs.getdbt.com/docs/building-a-dbt-project/building-models/configuring-incremental-models/) for the following reasons:
+- The ID linkages are built iteratively using two base tables. This process involves self-referencing
+- The data from the `identifies` table is incrementally introduced into the mix to accommodate new IDs
 
-We also use **DBT adapter** and supported functions like **check_relation**.
+We also use the [**DBT adapter**](https://docs.getdbt.com/docs/writing-code-in-dbt/jinja-context/adapter/) and supported functions like `check_relation`.
 
 # How to Use this Repository
-This project was created on the [DBT Cloud](https://cloud.getdbt.com). Hence, there is no `profiles.yml` file with the connection information. If you wish to execute the models in Command Line Interface (CLI) mode, you will need to create additional configuration files as documented [here](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/)
+This project was created on the [DBT Cloud](https://cloud.getdbt.com). Hence, there is no `profiles.yml` file with the connection information. If you wish to execute the models in Command Line Interface (CLI) mode, you will need to create additional configuration files as documented [here](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/).
 
 ## Sequence of Commands
 
-Following is the sequence of commands to be used after setting up the project for the first time or when a complete **data rebuild** is required
+The following is the sequence of commands to be run after setting up the project for the first time, or when a complete **data rebuild** is required:
 
 - ```dbt run --full-refresh --models dbt_id_graph_base```
 - ```dbt run --full-refresh --models dbt_id_graph_prev```
 - ```dbt run --full-refresh --models dbt_id_graph_latest_curr```
 - ```dbt run --full-refresh --models dbt_id_graph_curr```
 
-**When doing a rebuild, all tables should be manually dropped first**
+**Note: When doing a rebuild, all tables should be manually dropped first**
 
-Following commands may be run at regular intervals, in the sequence described
+The following commands may be run at regular intervals, in the sequence mentioned below:
 
 - ```dbt run --models dbt_id_graph_curr```			
 - ```dbt run --models dbt_id_graph_prev```
 - ```dbt run --models dbt_id_graph_latest_curr```
 - ```dbt run --full-refresh --models dbt_id_graph_curr```
-
 
 Some important points to note:
 
