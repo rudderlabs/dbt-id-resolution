@@ -28,5 +28,5 @@ Complete re-write every time
         version_user_id,
         cast(edge_timestamp as timestamp) as edge_timestamp 
     from 
-        RUDDER_WEBAPP_DATA.RUDDERWEBAPP.DBT_ID_GRAPH_CURR
+        DATABASE.SCHEMA.DBT_ID_GRAPH_CURR
 {% endif %}

@@ -37,11 +37,11 @@ In this case, even incremental update requires re-write of entire table
                     max(version_anon_id) as curr_version_anon_id,
                     max(version_user_id) as curr_version_user_id
                 FROM 
-                    RUDDER_WEBAPP_DATA.RUDDERWEBAPP.DBT_ID_GRAPH_CURR
+                    DATABASE.SCHEMA.DBT_ID_GRAPH_CURR
 
             ),
             dbt_id_graph_prev as (
-                SELECT * from RUDDER_WEBAPP_DATA.RUDDERWEBAPP.DBT_ID_GRAPH_CURR
+                SELECT * from DATABASE.SCHEMA.DBT_ID_GRAPH_CURR
             )
 
             (SELECT DISTINCT
@@ -81,7 +81,7 @@ In this case, even incremental update requires re-write of entire table
                     over(
                         PARTITION BY orig_user_id) AS tmp_user_id
                 FROM   
-                    (SELECT * FROM dbt_id_graph_prev UNION ALL SELECT * FROM RUDDER_WEBAPP_DATA.RUDDERWEBAPP.DBT_ID_GRAPH_BASE) AS TMP_GRAPH_IN,
+                    (SELECT * FROM dbt_id_graph_prev UNION ALL SELECT * FROM DATABASE.SCHEMA.DBT_ID_GRAPH_BASE) AS TMP_GRAPH_IN,
                     version_table
                 WHERE   orig_anon_id IN (SELECT orig_anon_id
                             FROM   dbt_id_graph_prev

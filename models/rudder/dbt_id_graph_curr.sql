@@ -17,7 +17,7 @@ In the incremental mode, simply add new edges from IDENTIFIES to the CURR table
                     max(version_anon_id)+1 as next_version_anon_id,
                     max(version_user_id)+1 as next_version_user_id
                 FROM 
-                    RUDDER_WEBAPP_DATA.RUDDERWEBAPP.DBT_ID_GRAPH_CURR
+                    DATABASE.SCHEMA.DBT_ID_GRAPH_CURR
 
             )
     select
@@ -29,7 +29,7 @@ In the incremental mode, simply add new edges from IDENTIFIES to the CURR table
             ,  version_table.next_version_user_id as version_user_id
             , cast(sent_at as timestamp) as edge_timestamp
     from 
-        RUDDER_WEBAPP_DATA.RUDDERWEBAPP.IDENTIFIES,
+        DATABASE.SCHEMA.IDENTIFIES,
         version_table
     where 
         cast(sent_at as timestamp) > (select max(edge_timestamp) from {{ this }})
