@@ -1,4 +1,4 @@
-# Identity Resolution DBT Code for RudderStack
+# Identity Resolution using DBT and RudderStack
 
 RudderStack supports different data warehouse destinations such as Redshift, BigQuery, and Snowflake. For each of these warehouses, certain predefined RudderStack tables get created, along with the tables for each type of event routed to RudderStack from different sources. This project leverages the `identifies` table that gets created when any client application invokes the `identify` API of the RudderStack SDK. This API is typically invoked at the time of user login or registration.
 
