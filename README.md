@@ -46,6 +46,7 @@ Some important points to note:
 - At the end of each run cycle, the table `<DATABASE>.<SCHEMA>.DBT_ID_GRAPH_CURR` will have the latest ID linkages
 - Some tests have been provided in this repository, which can be run to ensure that the tables being cycled are in a consistent state.
 - Executing `dbt test --data` will execute the tests
+- Remember to change DATABASE to your database name and SCHEMA to your schema name wherever applicable
 
 # More Information
  
