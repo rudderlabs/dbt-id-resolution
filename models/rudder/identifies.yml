@@ -1,0 +1,11 @@
+version: 2
+sources:
+    - name: <schema>
+      tables:
+        - name: IDENTIFIES
+          columns:
+            - name: anonymous_id
+
+            - name: user_id
+
+            - name: sent_at
