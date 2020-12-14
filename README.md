@@ -50,4 +50,4 @@ Some important points to note:
 
 # More Information
  
-For more information on ID Resolution or using the DBT macros, please feel free to [contact us](https://rudderstack.com/contact/) or start a conversation on our [Discord](https://discordapp.com/invite/xNEdEGw) channel. We will be happy to help you.
+For more information on ID Resolution or using the DBT macros, please feel free to [contact us](https://rudderstack.com/contact/) or start a conversation on our [Slack](https://resources.rudderstack.com/join-rudderstack-slack) channel. We will be happy to help you.
